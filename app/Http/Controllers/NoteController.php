@@ -12,9 +12,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        notes::all();
+        $notes =  notes::all();
 
-        return view('note.index');
+        return view('dashboard', compact('notes'));
     }
 
     /**
