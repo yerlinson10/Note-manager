@@ -19,7 +19,6 @@ return new class extends Migration
             $table->text('content');
             $table->string('tags')->nullable();
             $table->timestamps();
-
             $table->foreign('id_user_creator')->references('id')->on('users');
             $table->foreign('id_category')->references('id')->on('categories');
         });

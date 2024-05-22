@@ -94,7 +94,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12 col-12 text-center">
-                                                        <a id="btn-add-notes" class="btn btn-secondary w-100 _effect--ripple waves-effect waves-light" href="javascript:void(0);">Add Note</a>
+                                                        <a id="btn-add-notes" class="btn btn-secondary w-100 _effect--ripple waves-effect waves-light" href="{{route('note.create')}}">Agregar nota</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,19 +105,19 @@
                                                         <div class="note-inner-content">
                                                             <div class="note-content">
                                                                 <p class="note-title" data-notetitle="{{$note->title}}">{{$note->title}}</p>
-                                                                <p class="meta-time">07 May</p>
+                                                                <p class="meta-time">{{ date('d/m/y h:m', strtotime($note->updated_at))}}</p>
                                                                 <div class="note-description-content">
                                                                     <p class="note-description" data-notedescription="{{$note->content}}">{{$note->content}}</p>
                                                                 </div>
                                                             </div>
                                                             <div class="note-action">
-                                                                <a href="/">
+                                                                <a href="{{route('note.show', $note->id)}}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye view-note"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>                                                            
                                                                 </a>    
-                                                                <a href="/">
+                                                                <a href="{{route('note.edit',$note->id)}}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3 fav-note"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                                                                 </a>
-                                                                <a href="/">
+                                                                <a href="{{route('note.destroy', $note->id)}}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-note"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                                 </a>
                                                             </div>
