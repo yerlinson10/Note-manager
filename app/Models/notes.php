@@ -21,7 +21,7 @@ class notes extends Model
     {
         return $this->belongsTo(category::class, 'id_category');
     }
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class, 'id_user_creator');
     }

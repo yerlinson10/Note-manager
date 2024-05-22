@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\notes;
+use App\Models\category;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,5 +46,9 @@ class User extends Authenticatable
     public function notes()
     {
         return $this->hasMany(notes::class, 'id_user_creator');
+    }
+    public function categories()
+    {
+        return $this->hasMany(category::class, 'id_user_creator');
     }
 }

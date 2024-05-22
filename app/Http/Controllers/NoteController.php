@@ -24,7 +24,8 @@ class NoteController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Auth::user()->categories;
+        return view('note.create', compact('categories'));
     }
 
     /**

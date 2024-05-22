@@ -19,4 +19,8 @@ class category extends Model
     {
         return $this->hasMany(notes::class, 'id_category');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user_creator');
+    }
 }
