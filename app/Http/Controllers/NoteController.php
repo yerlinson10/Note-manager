@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\notes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -12,7 +14,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes =  notes::all();
+        $notes =  Auth::user()->notes;
 
         return view('dashboard', compact('notes'));
     }

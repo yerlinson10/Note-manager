@@ -98,9 +98,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-            
+                                            
                                             <div id="ct" class="note-container note-grid">
                                                 @forelse  ($notes as $note)
+                                                {{-- {{dd($note)}} --}}
                                                     <div class="note-item all-notes note-social">
                                                         <div class="note-inner-content">
                                                             <div class="note-content">
