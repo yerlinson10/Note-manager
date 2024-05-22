@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\notes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class category extends Model
 {
@@ -16,6 +17,6 @@ class category extends Model
 
     public function notes()
     {
-        return $this->hasMany(task::class, 'id_category');
+        return $this->hasMany(notes::class, 'id_category');
     }
 }
