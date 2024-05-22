@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user_creator');
             $table->unsignedBigInteger('id_category');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_user_creator')->references('id')->on('users');
-            $table->foreign('id_category')->references('id')->on('category');
+            $table->foreign('id_category')->references('id')->on('categories');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task');
+        Schema::dropIfExists('tasks');
     }
 };

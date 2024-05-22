@@ -14,7 +14,7 @@ class category extends Model
         'color'
     ];
 
-    public function task()
+    public function notes()
     {
         return $this->hasMany(task::class, 'id_category');
     }
