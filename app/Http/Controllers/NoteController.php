@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\task;
+use App\Models\notes;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -12,7 +12,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        task::all();
+        notes::all();
 
         return view('note.index');
     }
