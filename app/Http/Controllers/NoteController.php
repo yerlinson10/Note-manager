@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\task;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
