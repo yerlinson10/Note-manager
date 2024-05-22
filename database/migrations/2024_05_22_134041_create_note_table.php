@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user_creator');
-            $table->unsignedBigInteger('id_category');
+            $table->unsignedBigInteger('id_category')->nullable();
             $table->string('title');
             $table->text('content');
-            $table->string('tags');
+            $table->string('tags')->nullable();
             $table->timestamps();
 
             $table->foreign('id_user_creator')->references('id')->on('users');
