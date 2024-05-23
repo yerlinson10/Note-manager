@@ -74,9 +74,8 @@ class NoteController extends Controller
      */
     public function show(string $id)
     {
-        $categories = Auth::user()->categories;
         $note = Auth::user()->notes()->with('category')->where('id', $id)->first();
-        return view('note.show', compact('note', 'categories'));
+        return view('note.show', compact('note'));
     }
 
     /**

@@ -82,7 +82,8 @@
                     </div>
                     <!-- /BREADCRUMB -->
                 
-                    <form action="{{route('note.update')}}" method="POST">
+                    <form action="{{route('note.update', $note->id)}}" method="POST">
+                        @method('PATCH')
                         @csrf
                         <div class="row mb-4 layout-spacing layout-top-spacing">
                     
