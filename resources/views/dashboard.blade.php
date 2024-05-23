@@ -90,20 +90,7 @@
                                                             Categorías
                                                         </p>
             
-                                                        <ul class="nav nav-pills d-block group-list" id="pills-tab" role="tablist">
-                                                            <li class="nav-item">
-                                                                <a class="nav-link list-actions g-dot-primary" id="note-personal">Personal</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link list-actions g-dot-warning" id="note-work">Work</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link list-actions g-dot-success" id="note-social">Social</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link list-actions g-dot-danger" id="note-important">Important</a>
-                                                            </li>
-                                                        </ul>
+                                                        <x-list-categories></x-list-categories>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12 col-12 text-center">
                                                         <a id="btn-add-notes" class="btn btn-secondary w-100 _effect--ripple waves-effect waves-light" href="{{route('note.create')}}">Agregar nota</a>
@@ -113,7 +100,7 @@
                                             
                                             <div id="ct" class="note-container note-grid">
                                                 @forelse  ($notes as $note)
-                                                    <div class="note-item all-notes  @if (isset($note->category)){{$note->category->class}}@endif">
+                                                    <div class="note-item all-notes note-default  @if (isset($note->category)){{$note->category->class}}@endif" >
                                                         <div class="note-inner-content">
                                                             <div class="note-content">
                                                                 <p class="note-title" data-notetitle="{{$note->title}}">{{$note->title}}</p>

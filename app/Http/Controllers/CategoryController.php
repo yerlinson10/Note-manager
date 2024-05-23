@@ -12,10 +12,10 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
 
-    public $CategotyModel;
+    public $CategoryModel;
     public function __construct()
     {
-        $this->CategotyModel = new category();
+        $this->CategoryModel = new category();
         $this->middleware('auth');
     }
     public function index()
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // Models import
-        $CategotyModel = $this->CategotyModel;
+        $CategoryModel = $this->CategoryModel;
         
         // Validate
         $validatedData = $request->validate([
@@ -49,17 +49,17 @@ class CategoryController extends Controller
         ]);
     
         // Assign validated data to the model
-        $CategotyModel->name = $validatedData['name'];
-        $CategotyModel->description = $validatedData['description'];
-        $CategotyModel->id_user_creator = Auth::id();
+        $CategoryModel->name = $validatedData['name'];
+        $CategoryModel->description = $validatedData['description'];
+        $CategoryModel->id_user_creator = Auth::id();
 
         if (isset($request->color)) {
             $ColorandClass = explode(',', $request->color);
-            $CategotyModel->class = $ColorandClass[0];
-            $CategotyModel->color = $ColorandClass[1];
+            $CategoryModel->class = $ColorandClass[0];
+            $CategoryModel->color = $ColorandClass[1];
         }
 
-        $CategotyModel->save();
+        $CategoryModel->save();
     
         return redirect()->route('categories.index');
     }
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         // Models import
-        $CategotyModel = $this->CategotyModel;
+        $CategoryModel = $this->CategoryModel;
         
         // Validate
         $validatedData = $request->validate([
@@ -96,7 +96,7 @@ class CategoryController extends Controller
             'color' => 'nullable|string',
         ]);
 
-        $category = $CategotyModel::findOrFail($id);
+        $category = $CategoryModel::findOrFail($id);
             
         // Assign validated data to the model
         $category->name = $validatedData['name'];
@@ -119,25 +119,23 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $CategotyModel = $this->CategotyModel;
-
+        $CategoryModel = $this->CategoryModel;
+    
         try {
-            $category = $CategotyModel::findOrFail($id);
-            if(Auth::user()->id == $category->id_user_creator)
-            {
-                $category->delete();
+            $category = $CategoryModel::findOrFail($id);
+            if (Auth::user()->id == $category->id_user_creator) {
+                // Elimina las notas asociadas a la categoría
+                $category->notes()->delete();
+                $category->forceDelete();
                 $previousUrl = url()->previous();
-                return redirect($previousUrl)->with('success', 'La categoría ha sido eliminado correctamente.');
-            }else
-            {
+                return redirect($previousUrl)->with('success', 'La categoría ha sido eliminada correctamente.');
+            } else {
                 $previousUrl = url()->previous();
                 return redirect($previousUrl)->with('error', 'Disculpe, pero usted no es el creador de la nota, ni tiene permiso de administrador para realizar esta acción.');
             }
-            
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
-
             $previousUrl = url()->previous();
-            return redirect($previousUrl)->with('error', 'La nota no pudo ser encontrado o eliminada.');
+            return redirect($previousUrl)->with('error', 'La nota no pudo ser encontrada o eliminada.');
         }
     }
 }
