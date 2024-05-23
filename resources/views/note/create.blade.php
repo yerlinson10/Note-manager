@@ -89,11 +89,18 @@
                             <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     
                                 <div class="widget-content widget-content-area blog-create-section">
-                    
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger  alert-dismissible fade show border-0 mb-4" role="alert">
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg> ... </svg></button>
+                                                <strong>Advertencia!</strong> {{ $error }}
+                                            </div>
+                                        @endforeach
+                                    @endif
                                     <div class="row mb-4">
                                         <div class="col-sm-12">
-                                            <label for="titulo">Titulo</label>
-                                            <input type="text" class="form-control" name="title" id="titulo" placeholder="Titulo de la nota">
+                                            <label for="title">Titulo</label>
+                                            <input type="text" class="form-control" name="title" id="title" placeholder="Titulo de la nota" value="{{old('title')}}">
                                         </div>
                                     </div>
                                     
@@ -113,20 +120,19 @@
                                     <div class="row mb-4">
                                         <div class="col-sm-12">
                                             <label>Contenido</label>
-                                            <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+                                            <textarea class="form-control" name="content" id="" cols="30" rows="10">{{old('content')}}</textarea>
                                         </div>
                                     </div>
 
                     
                                 </div>
                             </div>
-                    
                             <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-xxl-0 mt-4">
                                 <div class="widget-content widget-content-area blog-create-section">
                                     <div class="row">
                                         <div class="col-xxl-12 col-md-12 mb-4">
                                             <label for="tags">Etiqueta</label>
-                                            <input id="tags" name='tags' value='' placeholder="Escribe la Etiueta">
+                                            <input id="tags" name='tags' value='{{old('tags')}}' placeholder="Escribe la Etiueta">
                                         </div>
                     
                                         <div class="col-xxl-12 col-md-12 mb-4">
@@ -134,7 +140,12 @@
                                             <select id="category" name="category[]" multiple placeholder="Seleccionar una categoría..." autocomplete="off">
                                                 <option value="">Seleccionar una categoría...</option>
                                                 @forelse ($categories as $category)
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    <option 
+                                                        @if (isset(old('category')[0]))  
+                                                            {{old('category')[0] == $category->id ? 'selected' : ''}} 
+                                                        @endif 
+                                                        value="{{$category->id}}">{{$category->name}}
+                                                    </option>
                                                 @empty
                                                     <option value="null" selected>No hay categorias</option>
                                                 @endforelse
