@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>{{ env('APP_NAME') }} - Agregar nota</title>
+    <title>{{ env('APP_NAME') }} - Editar nota</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('src/assets/img/favicon.ico') }}" />
     <link href="{{ asset('layouts/modern-dark-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('layouts/modern-dark-menu/css/dark/loader.css') }}" rel="stylesheet" type="text/css" />
@@ -76,13 +76,14 @@
                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Notas</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Agregar</li>
+                                <li class="breadcrumb-item active" aria-current="page">Editar</li>
                             </ol>
                         </nav>
                     </div>
                     <!-- /BREADCRUMB -->
                 
-                    <form action="{{route('note.store')}}" method="POST">
+                    <form action="{{route('note.update', $note->id)}}" method="POST">
+                        @method('PATCH')
                         @csrf
                         <div class="row mb-4 layout-spacing layout-top-spacing">
                     
@@ -100,27 +101,14 @@
                                     <div class="row mb-4">
                                         <div class="col-sm-12">
                                             <label for="title">Titulo</label>
-                                            <input type="text" class="form-control" name="title" id="title" placeholder="Titulo de la nota" value="{{old('title')}}">
+                                            <input type="text" class="form-control" name="title" id="title" placeholder="Titulo de la nota" value="{{old('title', $note->title)}}">
                                         </div>
                                     </div>
                                     
-                                    {{-- <div class="row mb-4">
-                                        <div class="col-sm-12">
-                                            <label for="color">Color</label>
-                                            <select id="color" name="color[]" multiple placeholder="Seleccionar un color..." autocomplete="off">
-                                                <option value="">Seleccionar un color...</option>
-                                                <option value="note-social" >Morado</option>
-                                                <option value="note-personal">Verde</option>
-                                                <option value="note-work">Amarillo</option>
-                                                <option value="note-important">Rojo</option>
-                                            </select>
-                                        </div>
-                                    </div> --}}
-
                                     <div class="row mb-4">
                                         <div class="col-sm-12">
                                             <label>Contenido</label>
-                                            <textarea class="form-control" name="content" id="" cols="30" rows="10">{{old('content')}}</textarea>
+                                            <textarea class="form-control" name="content" id="" cols="30" rows="10">{{old('content', $note->content)}}</textarea>
                                         </div>
                                     </div>
 
@@ -132,7 +120,7 @@
                                     <div class="row">
                                         <div class="col-xxl-12 col-md-12 mb-4">
                                             <label for="tags">Etiqueta</label>
-                                            <input id="tags" name='tags' value='{{old('tags')}}' placeholder="Escribe la Etiqueta">
+                                            <input id="tags" name='tags' value='{{old('tags', $note->tags)}}' placeholder="Escribe la Etiqueta">
                                         </div>
                     
                                         <div class="col-xxl-12 col-md-12 mb-4">
@@ -142,18 +130,20 @@
                                                 @forelse ($categories as $category)
                                                     <option 
                                                         @if (isset(old('category')[0]))  
-                                                            {{old('category')[0] == $category->id ? 'selected' : ''}} 
-                                                        @endif 
+                                                            {{old('category')[0] == $category->id || $note->category->id  == $category->id ? 'selected' : ''}} 
+                                                        @else
+                                                            {{$note->category->id  == $category->id ? 'selected' : ''}}
+                                                        @endif
                                                         value="{{$category->id}}">{{$category->name}}
                                                     </option>
                                                 @empty
-                                                    <option value="" selected>No hay categorias</option>
+                                                    <option value="null" selected>No hay categorias</option>
                                                 @endforelse
                                             </select>
                                         </div>
                     
                                         <div class="col-xxl-12 col-sm-4 col-12 mx-auto">
-                                            <button type="submit" class="btn btn-success w-100">Agregar Nota</button>
+                                            <button type="submit" class="btn btn-success w-100">Guardar Nota</button>
                                         </div>
                                         
                                     </div>

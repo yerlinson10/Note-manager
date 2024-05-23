@@ -45,13 +45,12 @@ class NoteController extends Controller
     {
         // Models import
         $NoteModel = $this->NoteModel;
-    
+        
         // Validate
         $validatedData = $request->validate([
             'title' => 'required|string|min:3|max:255',
             'content' => 'required|string|min:3',
-            'category' => 'array',
-            'category.*' => 'integer|exists:categories,id',
+            'category' => 'array|nullable',
         ]);
     
         // Assign validated data to the model
