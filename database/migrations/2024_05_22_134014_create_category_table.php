@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('color');
+            $table->string('class');
             $table->timestamps();
             $table->foreign('id_user_creator')->references('id')->on('users');
         });
