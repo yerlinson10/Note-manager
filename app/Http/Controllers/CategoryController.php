@@ -20,7 +20,7 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        $categories =  Auth::user()->categories;
+        $categories =  Auth::user()->categories()->get();
 
         return view('category.index', compact('categories'));
     }
@@ -77,7 +77,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Auth::user()->categories()->where('id', $id)->first();
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -85,7 +86,32 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Models import
+        $CategotyModel = $this->CategotyModel;
+        
+        // Validate
+        $validatedData = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'description' => 'required|string|min:3',
+            'color' => 'nullable|string',
+        ]);
+
+        $category = $CategotyModel::findOrFail($id);
+            
+        // Assign validated data to the model
+        $category->name = $validatedData['name'];
+        $category->description = $validatedData['description'];
+        $category->id_user_creator = Auth::id();
+        
+        if (isset($request->color)) {
+            $ColorandClass = explode(',', $request->color);
+            $category->class = $ColorandClass[0];
+            $category->color = $ColorandClass[1];
+        }
+        
+        $category->save();
+            
+        return redirect()->route('categories.index');
     }
 
     /**

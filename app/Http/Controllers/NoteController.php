@@ -95,6 +95,9 @@ class NoteController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(Auth::user()->id!= $note->id_user_creator){
+            return redirect()->route('dashboard');
+        }
         // Models import
         $NoteModel = $this->NoteModel;
 

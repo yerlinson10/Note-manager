@@ -88,13 +88,13 @@
                             <div class="row mb-4">
                                 <div class="col-sm-12">
                                     <label for="name" style="color: rgb(255, 255, 255)">Nombre</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la categorías *">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la categorías *" value="{{old('name')}}">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-sm-12">
                                     <label for="description" style="color: rgb(255, 255, 255)">Descripción</label>
-                                    <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                                    <textarea type="text" class="form-control" id="description" name="description">{{old('description')}}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -102,10 +102,10 @@
                                     <label for="color" style="color: rgb(255, 255, 255)">Color</label>
                                     <select id="color" name="color" class="form-select" placeholder="Seleccionar un color..." autocomplete="off">
                                         <option value="">Seleccionar un color...</option>
-                                        <option value="note-social, Morado" selected>Morado</option>
-                                        <option value="note-personal, Verde">Verde</option>
-                                        <option value="note-work, Amarillo">Amarillo</option>
-                                        <option value="note-important, Rojo">Rojo</option>
+                                        <option value="note-social, Morado" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Morado</option>
+                                        <option value="note-personal, Verde" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Verde</option>
+                                        <option value="note-work, Amarillo" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Amarillo</option>
+                                        <option value="note-important, Rojo" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Rojo</option>
                                     </select>
                                 </div>
                             </div>
@@ -152,20 +152,6 @@
         <script src="{{ asset('src/plugins/src/tomSelect/tom-select.base.js')}}"></script>
         <script src="{{ asset('src/plugins/src/tomSelect/custom-tom-select.js')}}"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
-
-        <script>
-            new TomSelect("#category",{
-                maxItems: 1
-            });
-           /* new TomSelect("#color",{
-                maxItems: 1
-            });*/
-            var input = document.querySelector('input[name=tags]');
-
-            // initialize Tagify on the above input node reference
-            new Tagify(input)
-        </script>
-
 </body>
 
 </html>
