@@ -28,6 +28,18 @@
     
     <link href="{{asset('src/assets/css/dark/components/modal.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('src/assets/css/dark/apps/notes.css')}}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{{asset('src/plugins/src/sweetalerts2/sweetalerts2.css')}}">
+    
+    <link href="{{asset('src/plugins/css/light/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{asset('src/plugins/css/dark/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
+
+
+    <link href="{{asset('src/plugins/src/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('src/plugins/css/light/notification/snackbar/custom-snackbar.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('src/plugins/css/dark/notification/snackbar/custom-snackbar.css')}}" rel="stylesheet" type="text/css" />
+
 </head>
 <body class="layout-boxed">
 
@@ -51,9 +63,9 @@
 
                 <div class="middle-content container-xxl p-0">
 
-                    {{-- <div class="row layout-top-spacing">
-                        
-                    </div> --}}
+                    {{-- modal activate --}}
+                    <button type="button" class="btn btn-warning mb-2 me-4" data-bs-toggle="modal" data-bs-target="#standardModal" id="Modal_delete" style="display: none">xd</button>
+
                     <div class="layout-px-spacing">
 
                         <div class="middle-content container-xxl p-0">
@@ -119,7 +131,7 @@
                                                                 <a href="{{route('note.edit',$note->id)}}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3 fav-note"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                                                                 </a>
-                                                                <a href="{{route('note.destroy', $note->id)}}">
+                                                                <a onclick="alert_delete_modal({{$note->id}})">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-note"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                                 </a>
                                                             </div>
@@ -161,7 +173,26 @@
 
     </div>
     <!-- END MAIN CONTAINER -->
-
+    <div class="modal fade modal-notification " id="standardModal" tabindex="-1" role="dialog" aria-labelledby="standardModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" id="standardModalLabel">
+            <div class="modal-content">
+                <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container" class="swal2-popup swal2-modal swal2-icon-warning swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: grid;">
+                    <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex;"><div class="swal2-icon-content">!</div></div>
+                    <h2 class="swal2-title" id="swal2-title" style="display: block;">¿Estas seguro?</h2>
+                    <div class="swal2-html-container" id="swal2-html-container" style="display: block;">¡No podrás revertir esto!</div>
+                    <div class="swal2-actions" style="display: flex;">
+                        <div class="swal2-loader"></div>
+                        <form id="form_delete" action="" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="swal2-confirm swal2-styled swal2-default-outline" aria-label="" style="display: inline-block; background-color: rgb(48, 133, 214);">¡Sí, bórralo!</button>
+                        </form>
+                        <button type="button" data-bs-dismiss="modal" class="swal2-cancel swal2-styled swal2-default-outline" aria-label="" style="display: inline-block; background-color: rgb(221, 51, 51);">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="{{asset('src/plugins/src/global/vendors.min.js')}}"></script>
     <script src="{{asset('src/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
@@ -169,9 +200,59 @@
     <script src="{{asset('src/plugins/src/waves/waves.min.js')}}"></script>
     <script src="{{asset('layouts/modern-dark-menu/app.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <script src="{{asset('src/plugins/src/notification/snackbar/snackbar.min.js')}}"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="{{asset('src/assets/js/components/notification/custom-snackbar.js')}}"></script>
+
+    @if (session('success'))
+        <button id="success_delete" class="btn btn-button-5 success-delete" style="display: none;">xd</button>
+        <script>
+            let btn_alert = document.getElementById('success_delete')
+            add_notification('.success-delete', 
+            {   
+                text: ' {{ session('success') }}', 
+                duration: 5000, 
+                pos: 'top-center', 
+                backgroundColor: '#00AD56', 
+                actionText: 'Ok', 
+                actionTextColor: '#00F3F0'
+            });
+
+            btn_alert.click();
+
+        </script>
+    @endif
+
+    @if (session('error'))
+        <button id="error_delete" class="btn btn-button-5 error-delete" style="display: none;">xd</button>
+                        {{ session('error') }}
+            <script>
+                let btn_alert = document.getElementById('error_delete')
+                add_notification('.error-delete', 
+                {   
+                    text: 'El registro no pudo ser eliminado', 
+                    duration: 5000, 
+                    pos: 'top-center', 
+                    backgroundColor: '#AD1800', 
+                    actionText: 'Ok', 
+                    actionTextColor: '#FFCACA'
+                })
+
+                btn_alert.click();
+
+            </script>
+    @endif
 
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    {{-- <script src="{{asset('src/assets/js/apps/notes.js')}}"></script> --}}
+    <script>
+        function alert_delete_modal(id){
+            let btn = document.getElementById('Modal_delete');
+            let form = document.getElementById('form_delete');
+            btn.click();
+            form.action = "/note/"+id;
+        }
+    </script>
+    </script>
     <!-- END PAGE LEVEL SCRIPTS -->
 
 </body>
