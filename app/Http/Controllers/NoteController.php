@@ -21,8 +21,11 @@ class NoteController extends Controller
     }
     public function index()
     {
-        $notes = Auth::user()->notes()->with('category')->get();
-
+        $notes = Auth::user()
+                ->notes()
+                ->with('category')
+                ->orderBy('created_at', 'desc')
+                ->get();
         return view('dashboard', compact('notes'));
     }
 
