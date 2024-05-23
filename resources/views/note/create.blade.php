@@ -62,7 +62,7 @@
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <x-sidebar ruta="dashboard"></x-sidebar>
+        <x-sidebar ruta="note.create"></x-sidebar>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -92,22 +92,23 @@
                     
                                     <div class="row mb-4">
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" name="title" id="titulo" placeholder="Titulo">
+                                            <label for="titulo">Titulo</label>
+                                            <input type="text" class="form-control" name="title" id="titulo" placeholder="Titulo de la nota">
                                         </div>
                                     </div>
                                     
-                                    <div class="row mb-4">
+                                    {{-- <div class="row mb-4">
                                         <div class="col-sm-12">
                                             <label for="color">Color</label>
                                             <select id="color" name="color[]" multiple placeholder="Seleccionar un color..." autocomplete="off">
                                                 <option value="">Seleccionar un color...</option>
-                                                <option value="note-social" selected>Morado</option>
+                                                <option value="note-social" >Morado</option>
                                                 <option value="note-personal">Verde</option>
                                                 <option value="note-work">Amarillo</option>
                                                 <option value="note-important">Rojo</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="row mb-4">
                                         <div class="col-sm-12">
@@ -193,9 +194,9 @@
             new TomSelect("#category",{
                 maxItems: 1
             });
-            new TomSelect("#color",{
+           /* new TomSelect("#color",{
                 maxItems: 1
-            });
+            });*/
             var input = document.querySelector('input[name=tags]');
 
             // initialize Tagify on the above input node reference
