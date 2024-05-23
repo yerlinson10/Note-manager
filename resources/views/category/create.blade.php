@@ -62,7 +62,7 @@
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <x-sidebar ruta="note.create"></x-sidebar>
+        <x-sidebar ruta="category.create"></x-sidebar>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -83,6 +83,14 @@
                     <!-- /BREADCRUMB -->
                 
                     <div class="widget-content widget-content-area">
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger  alert-dismissible fade show border-0 mb-4" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg> ... </svg></button>
+                                    <strong>Advertencia!</strong> {{ $error }}
+                                </div>
+                            @endforeach
+                        @endif
                         <form action="{{route('categories.store')}}" method="POST">
                             @csrf
                             <div class="row mb-4">
@@ -102,10 +110,10 @@
                                     <label for="color" style="color: rgb(255, 255, 255)">Color</label>
                                     <select id="color" name="color" class="form-select" placeholder="Seleccionar un color..." autocomplete="off">
                                         <option value="">Seleccionar un color...</option>
-                                        <option value="note-social, Morado" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Morado</option>
-                                        <option value="note-personal, Verde" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Verde</option>
-                                        <option value="note-work, Amarillo" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Amarillo</option>
-                                        <option value="note-important, Rojo" {{ old('color') == sprintf("%s,%s", $category->class, $category->color) ? 'selected' : ''}}>Rojo</option>
+                                        <option value="note-social, Morado" {{ old('color') == "note-social, Morado" ? 'selected' : ''}}>Morado</option>
+                                        <option value="note-personal, Verde" {{ old('color') == "note-personal, Verde" ? 'selected' : ''}}>Verde</option>
+                                        <option value="note-work, Amarillo" {{ old('color') == "note-work, Amarillo" ? 'selected' : ''}}>Amarillo</option>
+                                        <option value="note-important, Rojo" {{ old('color') == "note-important, Rojo" ? 'selected' : ''}}>Rojo</option>
                                     </select>
                                 </div>
                             </div>
