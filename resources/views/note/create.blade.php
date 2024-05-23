@@ -19,16 +19,34 @@
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link href="{{ asset('src/plugins/src/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('src/assets/css/light/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('src/assets/css/dark/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('src/plugins/src/filepond/filepond.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/tagify/tagify.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/light/forms/switches.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/editors/quill/quill.snow.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/tagify/custom-tagify.css')}}">
+    <link href="{{ asset('src/plugins/css/light/filepond/custom-filepond.css" rel="stylesheet" type="text/css')}}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/dark/forms/switches.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/editors/quill/quill.snow.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/tagify/custom-tagify.css')}}">
+    <link href="{{ asset('src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" href="{{ asset('src/assets/css/light/apps/blog-create.css')}}">
+    <link rel="stylesheet" href="{{ asset('src/assets/css/dark/apps/blog-create.css')}}">
+    <!--  END CUSTOM STYLE FILE  -->
+    <link href="{{ asset('src/assets/css/light/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('src/assets/css/light/components/modal.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('src/assets/css/light/apps/notes.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/src/tomSelect/tom-select.default.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/light/tomSelect/custom-tomSelect.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/css/dark/tomSelect/custom-tomSelect.css')}}">
+    
+    <!--  END CUSTOM STYLE FILE  -->
 
-    <link href="{{ asset('src/assets/css/dark/components/modal.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('src/assets/css/dark/apps/notes.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="layout-boxed">
@@ -52,45 +70,71 @@
             <div class="layout-px-spacing">
 
                 <div class="middle-content container-xxl p-0">
-
-                    <div class="row layout-top-spacing">
-                        
-                        <div class="layout-px-spacing">
-                            <div id="wizard_Default" class="col-12 layout-spacing">
-                                <div class="statbox widget box box-shadow">
-                                    <div class="widget-header">
-                                        <div class="row">
-                                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                                <h4>Crear nueva nota</h4>
-                                            </div>
-                                        </div>
+    
+                    <!-- BREADCRUMB -->
+                    <div class="page-meta">
+                        <nav class="breadcrumb-style-one" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Notas</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Agregar</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <!-- /BREADCRUMB -->
+                
+                    <div class="row mb-4 layout-spacing layout-top-spacing">
+                
+                        <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                
+                            <div class="widget-content widget-content-area blog-create-section">
+                
+                                <div class="row mb-4">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="titulo" placeholder="Titulo">
                                     </div>
-                                    <div class="widget-content widget-content-area">
-                                        <form action="{{ route('note.store') }}" method="POST">
-                                            @csrf
-                                            <div class="row mb-4">
-                                                <div class="col-sm-12">
-                                                    <label for="title">Titulo</label>
-                                                    <input type="text" class="form-control" id="title" placeholder="Titulo ">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <div class="col-sm-12">
-                                                    <label for="content">Contenido de la nota</label>
-                                                    <textarea class="form-control" name="content" id="" cols="30" rows="10" id="content"></textarea>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-success me-3" type="submit">Crear nota</button>
-                                    </form>
                                 </div>
+                
+                                <div class="row mb-4">
+                                    <div class="col-sm-12">
+                                        <label>Contenido</label>
+                                        <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
+                
+                            </div>
+                        </div>
+                
+                        <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-xxl-0 mt-4">
+                            <div class="widget-content widget-content-area blog-create-section">
+                                <div class="row">
+                                    <div class="col-xxl-12 col-md-12 mb-4">
+                                        <label for="tags">Etiqueta</label>
+                                        <input id="tags" name='tags' value='' placeholder="Escribe la Etiueta">
+                                    </div>
+                
+                                    <div class="col-xxl-12 col-md-12 mb-4">
+                                        <label for="category">Categoria</label>
+                                        <select id="category" name="category[]" multiple placeholder="Select a state..." autocomplete="off">
+                                            <option value="">Select a state...</option>
+                                            <option value="AL">Alabama</option>
+                                            <option value="AK">Alaska</option>
+                                            <option value="WI">Wisconsin</option>
+                                            <option value="WY">Wyoming</option>
+                                        </select>
+                                    </div>
+                
+                                    <div class="col-xxl-12 col-sm-4 col-12 mx-auto">
+                                        <button type="submit" class="btn btn-success w-100">Agregar Nota</button>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
+                
                     </div>
-                    <!--  BEGIN FOOTER  -->
-                    <x-footer></x-footer>
-                    <!--  END FOOTER  -->
+                    
                 </div>
+                <x-footer></x-footer>
                 <!--  END CONTENT AREA  -->
 
             </div>
@@ -98,19 +142,44 @@
 
     </main >
 
-            <!-- END MAIN CONTAINER -->
+    <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
+    <script src="{{ asset('src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
+    <script src="{{ asset('src/plugins/src/waves/waves.min.js') }}"></script>
+    <script src="{{ asset('layouts/modern-dark-menu/app.js') }}"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="{{ asset('src/plugins/src/editors/quill/quill.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/filepond.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/FilePondPluginFileValidateType.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/FilePondPluginImagePreview.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/FilePondPluginImageCrop.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/FilePondPluginImageResize.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/FilePondPluginImageTransform.min.js') }}"></script>
+        <script src="{{ asset('src/plugins/src/filepond/filepondPluginFileValidateSize.min.js') }}"></script>
+        
+        <script src="{{ asset('src/plugins/src/tagify/tagify.min.js') }}"></script>
+        
+        <script src="{{ asset('src/assets/js/apps/blog-create.js') }}"></script>
+        
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="{{ asset('src/assets/js/scrollspyNav.js')}}"></script>
+        <script src="{{ asset('src/plugins/src/tomSelect/tom-select.base.js')}}"></script>
+        <script src="{{ asset('src/plugins/src/tomSelect/custom-tom-select.js')}}"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
 
-            <script src="{{ asset('src/plugins/src/global/vendors.min.js') }}"></script>
-            <script src="{{ asset('src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-            <script src="{{ asset('src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
-            <script src="{{ asset('src/plugins/src/waves/waves.min.js') }}"></script>
-            <script src="{{ asset('layouts/modern-dark-menu/app.js') }}"></script>
-            <!-- END GLOBAL MANDATORY SCRIPTS -->
+        <script>
+            new TomSelect("#category",{
+                maxItems: 1
+            });
+            var input = document.querySelector('input[name=tags]');
 
-            <!-- BEGIN PAGE LEVEL SCRIPTS -->
-            {{-- <script src="{{asset('src/assets/js/apps/notes.js')}}"></script> --}}
-            <!-- END PAGE LEVEL SCRIPTS -->
+            // initialize Tagify on the above input node reference
+            new Tagify(input)
+        </script>
 
 </body>
 
