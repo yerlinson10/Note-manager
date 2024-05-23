@@ -119,6 +119,25 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $CategotyModel = $this->CategotyModel;
+
+        try {
+            $category = $CategotyModel::findOrFail($id);
+            if(Auth::user()->id == $category->id_user_creator)
+            {
+                $category->delete();
+                $previousUrl = url()->previous();
+                return redirect($previousUrl)->with('success', 'La categoría ha sido eliminado correctamente.');
+            }else
+            {
+                $previousUrl = url()->previous();
+                return redirect($previousUrl)->with('error', 'Disculpe, pero usted no es el creador de la nota, ni tiene permiso de administrador para realizar esta acción.');
+            }
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
+
+            $previousUrl = url()->previous();
+            return redirect($previousUrl)->with('error', 'La nota no pudo ser encontrado o eliminada.');
+        }
     }
 }
