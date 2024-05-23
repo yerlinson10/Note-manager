@@ -82,56 +82,74 @@
                     </div>
                     <!-- /BREADCRUMB -->
                 
-                    <div class="row mb-4 layout-spacing layout-top-spacing">
-                
-                        <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                
-                            <div class="widget-content widget-content-area blog-create-section">
-                
-                                <div class="row mb-4">
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="titulo" placeholder="Titulo">
-                                    </div>
-                                </div>
-                
-                                <div class="row mb-4">
-                                    <div class="col-sm-12">
-                                        <label>Contenido</label>
-                                        <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
-                                    </div>
-                                </div>
-                
-                            </div>
-                        </div>
-                
-                        <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-xxl-0 mt-4">
-                            <div class="widget-content widget-content-area blog-create-section">
-                                <div class="row">
-                                    <div class="col-xxl-12 col-md-12 mb-4">
-                                        <label for="tags">Etiqueta</label>
-                                        <input id="tags" name='tags' value='' placeholder="Escribe la Etiueta">
-                                    </div>
-                
-                                    <div class="col-xxl-12 col-md-12 mb-4">
-                                        <label for="category">Categoria</label>
-                                        <select id="category" name="category[]" multiple placeholder="Select a state..." autocomplete="off">
-                                            <option value="">Select a state...</option>
-                                            <option value="AL">Alabama</option>
-                                            <option value="AK">Alaska</option>
-                                            <option value="WI">Wisconsin</option>
-                                            <option value="WY">Wyoming</option>
-                                        </select>
-                                    </div>
-                
-                                    <div class="col-xxl-12 col-sm-4 col-12 mx-auto">
-                                        <button type="submit" class="btn btn-success w-100">Agregar Nota</button>
+                    <form action="{{route('note.store')}}" method="POST">
+                        @csrf
+                        <div class="row mb-4 layout-spacing layout-top-spacing">
+                    
+                            <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    
+                                <div class="widget-content widget-content-area blog-create-section">
+                    
+                                    <div class="row mb-4">
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" name="title" id="titulo" placeholder="Titulo">
+                                        </div>
                                     </div>
                                     
+                                    <div class="row mb-4">
+                                        <div class="col-sm-12">
+                                            <label for="color">Color</label>
+                                            <select id="color" name="color[]" multiple placeholder="Seleccionar un color..." autocomplete="off">
+                                                <option value="">Seleccionar un color...</option>
+                                                <option value="note-social" selected>Morado</option>
+                                                <option value="note-personal">Verde</option>
+                                                <option value="note-work">Amarillo</option>
+                                                <option value="note-important">Rojo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-sm-12">
+                                            <label>Contenido</label>
+                                            <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+
+                    
                                 </div>
                             </div>
+                    
+                            <div class="col-xxl-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-xxl-0 mt-4">
+                                <div class="widget-content widget-content-area blog-create-section">
+                                    <div class="row">
+                                        <div class="col-xxl-12 col-md-12 mb-4">
+                                            <label for="tags">Etiqueta</label>
+                                            <input id="tags" name='tags' value='' placeholder="Escribe la Etiueta">
+                                        </div>
+                    
+                                        <div class="col-xxl-12 col-md-12 mb-4">
+                                            <label for="category">Categoría</label>
+                                            <select id="category" name="category[]" multiple placeholder="Seleccionar una categoría..." autocomplete="off">
+                                                <option value="">Seleccionar una categoría...</option>
+                                                @forelse ($categories as $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @empty
+                                                    <option value="null" selected>No hay categorias</option>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                    
+                                        <div class="col-xxl-12 col-sm-4 col-12 mx-auto">
+                                            <button type="submit" class="btn btn-success w-100">Agregar Nota</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                    
                         </div>
-                
-                    </div>
+                    </form>
                     
                 </div>
                 <x-footer></x-footer>
@@ -173,6 +191,9 @@
 
         <script>
             new TomSelect("#category",{
+                maxItems: 1
+            });
+            new TomSelect("#color",{
                 maxItems: 1
             });
             var input = document.querySelector('input[name=tags]');
