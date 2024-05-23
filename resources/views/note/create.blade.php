@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>{{ env('APP_NAME') }} - Panel de inicio</title>
+    <title>{{ env('APP_NAME') }} - Agregar nota</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('src/assets/img/favicon.ico') }}" />
     <link href="{{ asset('layouts/modern-dark-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('layouts/modern-dark-menu/css/dark/loader.css') }}" rel="stylesheet" type="text/css" />
@@ -132,7 +132,7 @@
                                     <div class="row">
                                         <div class="col-xxl-12 col-md-12 mb-4">
                                             <label for="tags">Etiqueta</label>
-                                            <input id="tags" name='tags' value='{{old('tags')}}' placeholder="Escribe la Etiueta">
+                                            <input id="tags" name='tags' value='{{old('tags')}}' placeholder="Escribe la Etiqueta">
                                         </div>
                     
                                         <div class="col-xxl-12 col-md-12 mb-4">

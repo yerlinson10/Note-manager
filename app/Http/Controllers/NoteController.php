@@ -54,10 +54,13 @@ class NoteController extends Controller
         // Assign validated data to the model
         $NoteModel->title = $validatedData['title'];
         $NoteModel->content = $validatedData['content'];
+        $NoteModel->tags = $request->tags;
         $NoteModel->id_user_creator = Auth::id();
     
         if (!empty($validatedData['category'])) {
             $NoteModel->id_category = $validatedData['category'][0];
+        }else {
+            $note->id_category = null;
         }
         
         $NoteModel->save();
@@ -71,7 +74,9 @@ class NoteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categories = Auth::user()->categories;
+        $note = Auth::user()->notes()->with('category')->where('id', $id)->first();
+        return view('note.show', compact('note', 'categories'));
     }
 
     /**
@@ -79,7 +84,9 @@ class NoteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Auth::user()->categories;
+        $note = Auth::user()->notes()->with('category')->where('id', $id)->first();
+        return view('note.edit', compact('note', 'categories'));
     }
 
     /**
@@ -87,7 +94,35 @@ class NoteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Models import
+        $NoteModel = $this->NoteModel;
+
+        $note = $NoteModel::findOrFail($id);
+
+        // Validate data
+        $validatedData = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'content' => 'required|string|min:3',
+            'category' => 'nullable|array',
+            'category.*' => 'integer|exists:categories,id',
+        ]);
+
+        // Update note properties
+        $note->title = $validatedData['title'];
+        $note->content = $validatedData['content'];
+        $note->tags = $request->tags;
+
+        // Update category if provided
+        if (isset($validatedData['category'])) {
+            $note->id_category = $validatedData['category'][0];
+        } else {
+            $note->id_category = null;
+        }
+
+        $note->save();
+
+        // Redirect after successful update
+        return redirect()->route('dashboard');
     }
 
     /**
