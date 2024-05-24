@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard',  [NoteController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard/filter/',  [NoteController::class, 'filter'])->middleware(['auth', 'verified'])->name('dashboard.filter');
 
 Route::middleware('auth')->group(function () {
     // perfile routes

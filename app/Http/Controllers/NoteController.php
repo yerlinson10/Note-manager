@@ -28,6 +28,38 @@ class NoteController extends Controller
                 ->get();
         return view('dashboard', compact('notes'));
     }
+    /**
+     * filter the view to view filtered notes.
+     */
+    public function filter(Request $request)
+    {
+        if ($request->category) {
+            $notes = Auth::user()
+                ->notes()
+                ->where('id_category', $request->category)
+                ->with('category')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }else if($request->tags){
+            $notes = Auth::user()
+                ->notes()
+                ->where('tags', 'like', "%{$request->tags}%")
+                ->with('category')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }else if($request->search){
+            $notes = Auth::user()
+                ->notes()
+                ->where('title', 'like', "%{$request->search}%")
+                ->orWhere('content', 'like', "%{$request->search}%")
+                ->with('category')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }else {
+            return redirect()->route('dashboard');
+        }
+        return view('dashboard', compact('notes'));
+    }
 
     /**
      * Show the form for creating a new resource.

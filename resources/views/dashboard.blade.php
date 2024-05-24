@@ -116,15 +116,15 @@
                                                                     @if (isset($note->category))
                                                                         <p><b>Categoría</b></p>
                                                                         @if ($note->category->class == "note-social")
-                                                                            <a href=""><span class="badge badge-secondary mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                            <a href="{{route('dashboard.filter', ['category' =>$note->category->id])}}"><span class="badge badge-secondary mb-2 me-4">{{$note->category->name}}</span></a>
                                                                         @elseif($note->category->class == "note-personal")
-                                                                            <a href=""><span class="badge badge-success mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                            <a href="{{route('dashboard.filter', ['category' =>$note->category->id])}}"><span class="badge badge-success mb-2 me-4">{{$note->category->name}}</span></a>
                                                                         @elseif ($note->category->class == "note-work")
-                                                                            <a href=""><span class="badge badge-warning mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                            <a href="{{route('dashboard.filter', ['category' =>$note->category->id])}}"><span class="badge badge-warning mb-2 me-4">{{$note->category->name}}</span></a>
                                                                         @elseif ($note->category->class == "note-important")
-                                                                            <a href=""><span class="badge badge-danger mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                            <a href="{{route('dashboard.filter', ['category' =>$note->category->id])}}"><span class="badge badge-danger mb-2 me-4">{{$note->category->name}}</span></a>
                                                                         @else
-                                                                            <a href=""><span class="badge badge-dark mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                            <a href="{{route('dashboard.filter', ['category' =>$note->category->id])}}"><span class="badge badge-dark mb-2 me-4">{{$note->category->name}}</span></a>
                                                                         @endif
                                                                     @endif
                             
@@ -132,7 +132,7 @@
                                                                     @if (isset($note->tags))
                                                                         <p><b>Etiquetas</b></p>
                                                                         @foreach (json_decode($note->tags) as $tag)
-                                                                            <a href=""><span class="badge outline-badge-primary mb-2 ">{{$tag->value}}</span></a>
+                                                                            <a href="{{route('dashboard.filter',['tags' =>$tag->value] )}}"><span class="badge outline-badge-primary mb-2 ">{{$tag->value}}</span></a>
                                                                         @endforeach
                                                                     @endif
                                                                     

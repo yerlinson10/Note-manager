@@ -143,6 +143,7 @@
                 <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container" class="swal2-popup swal2-modal swal2-icon-warning swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: grid;">
                     <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex;"><div class="swal2-icon-content">!</div></div>
                     <h2 class="swal2-title" id="swal2-title" style="display: block;">¿Estas seguro?</h2>
+                    <p style="display: block; padding: 0.5rem">Al eliminar la categoría, usted estaría eliminando todas las notas que poseen esta categoría.</p>
                     <div class="swal2-html-container" id="swal2-html-container" style="display: block;">¡No podrás revertir esto!</div>
                     <div class="swal2-actions" style="display: flex;">
                         <div class="swal2-loader"></div>
