@@ -37,7 +37,11 @@
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 text-gray-900 dark:text-gray-100">
-                                <h1>Hola mundo</h1>
+                                <div class="flex justify-center align-items-center">
+                                    <x-application-logo ></x-application-logo>
+                                </div>
+                                <h1 style="font-size: 5rem">{{env('APP_NAME')}}</h1>
+                                <p>Registrate o inicia sección</p>
                             </div>
                         </div>
                     </div>

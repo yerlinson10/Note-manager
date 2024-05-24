@@ -1,0 +1,1 @@
+<img src="{{ asset('src/assets/img/cork-logo.png') }}" width="55rem" class="navbar-logo" {{ $attributes }} alt="logo">
