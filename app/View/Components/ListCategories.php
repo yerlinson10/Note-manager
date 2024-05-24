@@ -13,17 +13,26 @@ class ListCategories extends Component
      * Create a new component instance.
      */
 
-    public $CategoryinClass;
+    /**
+     * The user's categories.
+     *
+     * @var Collection
+     */
     public $categories;
+    /**
+     * CSS classes for category indicators.
+     *
+     * @var array
+     */
+    public $categoryInClass = [
+        "note-personal" => "g-dot-primary",
+        "note-social" => "g-dot-success",
+        "note-important" => "g-dot-danger",
+        "note-work" => "g-dot-warning",
+    ];
     public function __construct()
     {
         $this->categories = Auth::user()->categories()->get();
-        $this->CategoryinClass = [
-            "note-personal" => "g-dot-primary",
-            "note-social" => "g-dot-success",
-            "note-important" => "g-dot-danger",
-            "note-work" => "g-dot-warning"
-        ];
     }
 
     /**

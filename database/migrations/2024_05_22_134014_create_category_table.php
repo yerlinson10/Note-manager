@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user_creator');
             $table->string('name');
             $table->text('description');
-            $table->string('color');
-            $table->string('class');
+            $table->string('color')->nullable();
+            $table->string('class')->nullable();
             $table->timestamps();
             $table->foreign('id_user_creator')->references('id')->on('users');
         });
