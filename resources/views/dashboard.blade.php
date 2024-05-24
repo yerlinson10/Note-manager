@@ -112,6 +112,31 @@
                                                                 </div>
                                                             </div>
                                                             <div class="note-action">
+                                                                <div class=" mt-2">
+                                                                    @if (isset($note->category))
+                                                                        <p><b>Categoría</b></p>
+                                                                        @if ($note->category->class == "note-social")
+                                                                            <a href=""><span class="badge badge-secondary mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                        @elseif($note->category->class == "note-personal")
+                                                                            <a href=""><span class="badge badge-success mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                        @elseif ($note->category->class == "note-work")
+                                                                            <a href=""><span class="badge badge-warning mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                        @elseif ($note->category->class == "note-important")
+                                                                            <a href=""><span class="badge badge-danger mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                        @else
+                                                                            <a href=""><span class="badge badge-dark mb-2 me-4">{{$note->category->name}}</span></a>
+                                                                        @endif
+                                                                    @endif
+                            
+                                                                    {{-- {{dd($note->tags)}} --}}
+                                                                    @if (isset($note->tags))
+                                                                        <p><b>Etiquetas</b></p>
+                                                                        @foreach (json_decode($note->tags) as $tag)
+                                                                            <a href=""><span class="badge outline-badge-primary mb-2 ">{{$tag->value}}</span></a>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    
+                                                                </div>
                                                                 <a href="{{route('note.show', $note->id)}}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye view-note"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>                                                            
                                                                 </a>    
