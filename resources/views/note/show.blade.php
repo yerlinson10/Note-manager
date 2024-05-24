@@ -88,16 +88,15 @@
                                         @if (isset($note->category))
                                             <h6>Categoría</h6>
                                             @if ($note->category->class == "note-social")
-                                                <span class="badge badge-secondary mb-2 me-4">{{$note->category->name}}</span>
-                                            @endif
-                                            @if ($note->category->class == "note-personal")
-                                                <span class="badge badge-success mb-2 me-4">{{$note->category->name}}</span>
-                                            @endif
-                                            @if ($note->category->class == "note-work")
-                                                <span class="badge badge-warning mb-2 me-4">{{$note->category->name}}</span>
-                                            @endif
-                                            @if ($note->category->class == "note-important")
-                                                <span class="badge badge-danger mb-2 me-4">{{$note->category->name}}</span>
+                                                <a href=""><span class="badge badge-secondary mb-2 me-4">{{$note->category->name}}</span></a>
+                                            @elseif($note->category->class == "note-personal")
+                                                <a href=""><span class="badge badge-success mb-2 me-4">{{$note->category->name}}</span></a>
+                                            @elseif ($note->category->class == "note-work")
+                                                <a href=""><span class="badge badge-warning mb-2 me-4">{{$note->category->name}}</span></a>
+                                            @elseif ($note->category->class == "note-important")
+                                                <a href=""><span class="badge badge-danger mb-2 me-4">{{$note->category->name}}</span></a>
+                                            @else
+                                                <a href=""><span class="badge badge-dark mb-2 me-4">{{$note->category->name}}</span></a>
                                             @endif
                                         @endif
 
@@ -105,7 +104,7 @@
                                         @if (isset($note->tags))
                                             <h6>Etiquetas</h6>
                                             @foreach (json_decode($note->tags) as $tag)
-                                                <span class="badge outline-badge-primary mb-2 ">{{$tag->value}}</span>
+                                                <a href=""><span class="badge outline-badge-primary mb-2 ">{{$tag->value}}</span></a>
                                             @endforeach
                                         @endif
                                         
