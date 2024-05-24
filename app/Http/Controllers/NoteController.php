@@ -61,8 +61,6 @@ class NoteController extends Controller
     
         if (!empty($validatedData['category'])) {
             $NoteModel->id_category = $validatedData['category'][0];
-        }else {
-            $note->id_category = null;
         }
         
         $NoteModel->save();
@@ -95,20 +93,21 @@ class NoteController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request);
+        // Models import
+        $NoteModel = $this->NoteModel;
+        $note = $NoteModel::findOrFail($id);
         if(Auth::user()->id!= $note->id_user_creator){
             return redirect()->route('dashboard');
         }
-        // Models import
-        $NoteModel = $this->NoteModel;
 
-        $note = $NoteModel::findOrFail($id);
 
         // Validate data
         $validatedData = $request->validate([
             'title' => 'required|string|min:3|max:255',
             'content' => 'required|string|min:3',
             'category' => 'nullable|array',
-            'category.*' => 'integer|exists:categories,id',
+            // 'category.*' => 'integer|exists:categories,id',
         ]);
 
         // Update note properties
@@ -118,10 +117,14 @@ class NoteController extends Controller
 
         // Update category if provided
         if (isset($validatedData['category'])) {
-            $note->id_category = $validatedData['category'][0];
-        } else {
-            $note->id_category = null;
+            if($validatedData['category'][0] == 'null'){
+                $note->id_category = null;
+            }
+            else{
+                $note->id_category = $validatedData['category'][0];
+            }
         }
+        
 
         $note->save();
 

@@ -127,12 +127,15 @@
                                             <label for="category">Categoría</label>
                                             <select id="category" name="category[]" multiple placeholder="Seleccionar una categoría..." autocomplete="off">
                                                 <option value="">Seleccionar una categoría...</option>
+                                                <option value="null">Aquitar categoría</option>
                                                 @forelse ($categories as $category)
                                                     <option 
-                                                        @if (isset(old('category')[0]))  
-                                                            {{old('category')[0] == $category->id || $note->category->id  == $category->id ? 'selected' : ''}} 
+                                                        @if (isset(old('category')[0]))
+                                                            {{ old('category')[0] == $category->id  ? 'selected' : ''}} 
                                                         @else
-                                                            {{$note->category->id  == $category->id ? 'selected' : ''}}
+                                                            @if(isset($note->category->id))
+                                                                {{$note->category->id  == $category->id ? 'selected' : ''}}
+                                                            @endif
                                                         @endif
                                                         value="{{$category->id}}">{{$category->name}}
                                                     </option>
