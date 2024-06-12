@@ -24,7 +24,7 @@ npm install
 Copie el archivo ``.env.example`` y renómbrelo a simplemente ``.env``. Este archivo ya tendrá el nombre de la aplicación. Asegúrese de configurar las credenciales de la base de datos.
 
 ### Genrar la key(APP_KEY)
-```php
+```console
 php artisan key:generate
 ```
 
