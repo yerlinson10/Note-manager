@@ -41,3 +41,10 @@ Para ejecutar el proyecto, es necesario que el servidor de PHP y la base de dato
 ```console
 npm run dev
 ```
+## Requerimiento del proyecto
+A continuación, te presento la lista de requisitos para poder ejecutar el proyecto.
+- **[PHP ^8.1](https://www.php.net/releases/8.1/en.php)**
+- **[Laragon (o cualquier otro entorno de su elección)](https://laragon.org/download/).**
+- **[MySql 8.0.30](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-30.html)**
+- **[Node 20.11.1](https://nodejs.org/en/blog/release/v20.11.1)**
+- **[Cualquier otro requerimiento de Laravel 10](https://laravel.com/docs/10.x/releases)**
